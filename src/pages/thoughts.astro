@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/mainlayout.astro";
+---
+
+<Layout>
+  <div class="container">
+    <p class="title">letgo.</p>
+    <textarea class="content" id="editor" rows="1" cols="47" autofocus
+    ></textarea>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const textarea = document.getElementById("editor");
+
+      textarea.addEventListener("keydown", (e) => {
+        if (
+          e.key === "Backspace" ||
+          e.key === "Delete" ||
+          e.key === "Enter" ||
+          (e.metaKey && e.key.toLowerCase() === "a")
+        ) {
+          e.preventDefault();
+        }
+      });
+      textarea.addEventListener("input", (e) => {
+        const value = (textarea as HTMLTextAreaElement).value;
+        const maxLength = (textarea as HTMLTextAreaElement).cols;
+
+        if (value.length > maxLength) {
+          (textarea as HTMLTextAreaElement).value = value.substring(
+            value.length - maxLength
+          );
+        }
+      });
+    });
+  </script>
+  <style>
+    .title {
+      margin-left: 10px;
+    }
+    .container {
+      width: 80vh;
+    }
+    .content {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1.5rem;
+      background-color: #191919;
+      color: white;
+      resize: none;
+      border: none;
+      line-height: 2;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .content:focus {
+      outline: none !important;
+      border: none;
+    }
+  </style>
+</Layout>
