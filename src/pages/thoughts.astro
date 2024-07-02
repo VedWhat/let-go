@@ -4,6 +4,7 @@ import Layout from "../layouts/mainlayout.astro";
 
 <Layout>
   <div class="container">
+    <a href="/" class="back-arrow">← back</a>
     <p class="title">letgo.</p>
     <textarea class="content" id="editor" rows="1" cols="47" autofocus
     ></textarea>
@@ -58,6 +59,10 @@ import Layout from "../layouts/mainlayout.astro";
     .content:focus {
       outline: none !important;
       border: none;
+    }
+    .back-arrow {
+      color: white;
+      margin-left: 10px;
     }
   </style>
 </Layout>
