@@ -8,10 +8,30 @@ import Layout from "../layouts/mainlayout.astro";
     <p class="title">letgo.</p>
     <textarea class="content" id="editor" rows="1" cols="47" autofocus
     ></textarea>
+    <div id="toast" class="toast hidden"></div>
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", (event) => {
       const textarea = document.getElementById("editor");
+      const toast = document.getElementById("toast");
+
+      const messages = [
+        "Don't worry about that mistake, keep going!",
+        "You're doing great, just breathe.",
+        "Every step counts, no matter how small.",
+        "Let it flow, let it go.",
+      ];
+
+      let index = 0;
+
+      const showToast = () => {
+        toast.textContent = messages[index];
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+          toast.classList.add("hidden");
+          index = (index + 1) % messages.length;
+        }, 3000);
+      };
 
       textarea.addEventListener("keydown", (e) => {
         if (
@@ -21,6 +41,7 @@ import Layout from "../layouts/mainlayout.astro";
           (e.metaKey && e.key.toLowerCase() === "a")
         ) {
           e.preventDefault();
+          showToast();
         }
       });
       textarea.addEventListener("input", (e) => {
@@ -63,6 +84,24 @@ import Layout from "../layouts/mainlayout.astro";
     .back-arrow {
       color: white;
       margin-left: 10px;
+    }
+    .toast {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1rem;
+      opacity: 0.9;
+      transition: all 0.5s ease;
+    }
+    .hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
     }
   </style>
 </Layout>
